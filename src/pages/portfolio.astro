@@ -4,14 +4,15 @@ import BaseLayout from './basePage.html';
 import * as fs from 'fs';
 
 const linkPath = './public/clips/links/';
-const massageFilePath = '/public/clips/files/massage/';
+const massageGlob = '/public/clips/files/massage/*';
+const chiroGlob = '/public/clips/files/chiro/*'
 
 const massageFileClips = await Astro.glob('/public/clips/files/massage/*').then(files => {
-    return files.map(file => file.default.substr(file.default.lastIndexOf('/') + 1, file.default.length));
+    return files.map(file => file.default.toString());
 });
 
 const chiroFileClips = await Astro.glob('/public/clips/files/chiro/*').then(files => {
-    return files.map(file => file.default.substr(file.default.lastIndexOf('/') + 1, file.default.length));
+    return files.map(file => file.default.toString());
 });
 
 const massageLinkPath = linkPath + 'massageWebLinks.txt';
@@ -41,12 +42,12 @@ const gatorLinks = fs.readFileSync(gatorLinkPath).toString().split('\n');
                     </ul>
                     <h2>Chiropractic Economics</h2>
                     <ul>
-                        {chiroFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.'))}</a></li>)}
+                        {chiroFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.')).substr(clip.lastIndexOf('/') + 1, clip.length)}</a></li>)}
                         {chiroLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
                     </ul>
                     <h2>MASSAGE Magazine:</h2>
                     <ul>
-                        {massageFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.'))}</a></li>)}
+                        {massageFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.')).substr(clip.lastIndexOf('/') + 1)}</a></li>)}
                         {massageLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
                     </ul>
                     <h2>The Future Adjustment Podcast</h2>
