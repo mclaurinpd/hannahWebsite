@@ -42,12 +42,12 @@ const gatorLinks = fs.readFileSync(gatorLinkPath).toString().split('\n');
                     </ul>
                     <h2>Chiropractic Economics</h2>
                     <ul>
-                        {chiroFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.')).substr(clip.lastIndexOf('/') + 1, clip.length)}</a></li>)}
+                        {chiroFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.indexOf('.')).substr(clip.lastIndexOf('/') + 1, clip.length)}</a></li>)}
                         {chiroLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
                     </ul>
                     <h2>MASSAGE Magazine:</h2>
                     <ul>
-                        {massageFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.lastIndexOf('.')).substr(clip.lastIndexOf('/') + 1)}</a></li>)}
+                        {massageFileClips.map((clip) => <li><a href={clip}>{clip.substr(0, clip.indexOf('.')).substr(clip.lastIndexOf('/') + 1)}</a></li>)}
                         {massageLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
                     </ul>
                     <h2>The Future Adjustment Podcast</h2>
