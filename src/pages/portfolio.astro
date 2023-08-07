@@ -1,0 +1,60 @@
+---
+
+import BaseLayout from './basePage.html';
+import * as fs from 'fs';
+import * as path from 'path';
+
+const linkPath = './public/clips/links/'
+const massageFilePath = './public/clips/files/massage/';
+const massageLinkPath = linkPath + 'massageWebLinks.txt';
+const chiroFilePath = './public/clips/files/chiro/';
+const chiroLinkPath = linkPath + 'chiroWebLinks.txt';
+const wsLinkPath = linkPath + 'wsWebLinks.txt';
+const tfaLinkPath = linkPath + 'tfaWebLinks.txt';
+const gatorLinkPath = linkPath + 'alligatorWebLinks.txt';
+
+const massageFileClips = fs.readdirSync(massageFilePath);
+const massageLinks = fs.readFileSync(massageLinkPath).toString().split('\n')
+const chiroFileClips = fs.readdirSync(chiroFilePath);
+const chiroLinks = fs.readFileSync(chiroLinkPath).toString().split('\n');
+const wsLinks = fs.readFileSync(wsLinkPath).toString().split('\n');
+const tfaLinks = fs.readFileSync(tfaLinkPath).toString().split('\n');
+const gatorLinks = fs.readFileSync(gatorLinkPath).toString().split('\n');
+
+---
+
+<BaseLayout>
+	<body>
+        <!-- Banner -->
+        <section id="banner">
+            <div class="content">
+                <header>
+                    <h1>Here are some clips!</h1>
+                    <h2>WoundSource</h2>
+                    <ul>
+                        {wsLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
+                    </ul>
+                    <h2>Chiropractic Economics</h2>
+                    <ul>
+                        {chiroFileClips.map((clip) => <li><a href={chiroFilePath + clip}>{clip.substr(0, clip.lastIndexOf('.'))}</a></li>)}
+                        {chiroLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
+                    </ul>
+                    <h2>MASSAGE Magazine:</h2>
+                    <ul>
+                        {massageFileClips.map((clip) => <li><a href={massageFilePath + clip}>{clip.substr(0, clip.lastIndexOf('.'))}</a></li>)}
+                        {massageLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
+                    </ul>
+                    <h2>The Future Adjustment Podcast</h2>
+                    <ul>
+                        {tfaLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
+                    </ul>
+                    <h2>The Independent Florida Alligator</h2>
+                    <ul>
+                        {gatorLinks.map((line) => <li><a href={line.split(',')[0]}>{line.split(',')[1]}</a></li>)}
+                    </ul>
+                </header>
+            </div>
+            <img class="image object" id="logo" src='/images/mainLogo.svg' />
+        </section>
+    </body>
+</BaseLayout>
